@@ -45,7 +45,7 @@ public class TopicController {
 
   public ResponseEntity<TopicDetailedDTO> updateTopic(@RequestBody TopicUpdateDTO topicUpdateDTO) {
     var topicUpdated = service.updateTopic(topicUpdateDTO);
-    return ResponseEntity.ok(topicUpdated);
+    return ResponseEntity.status(HttpStatus.OK).body(topicUpdated);
   }
 
   public ResponseEntity<Object> deleteTopic(@PathVariable(value = "topicId") Long topicId) {
