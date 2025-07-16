@@ -1,5 +1,7 @@
 package com.forumhub.api.dto.course;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record NewCourseDTO(
-    String name) {
+    @NotBlank(message = "O nome do curso é obrigatório") String name) {
 }

@@ -17,6 +17,8 @@ import com.forumhub.api.dto.topic.TopicDetailedDTO;
 import com.forumhub.api.dto.topic.TopicUpdateDTO;
 import com.forumhub.api.service.TopicService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("topics")
 public class TopicController {
@@ -24,7 +26,7 @@ public class TopicController {
   @Autowired
   private TopicService service;
 
-  public ResponseEntity<TopicDetailedDTO> createTopic(@RequestBody TopicCreateDTO topicCreateDTO,
+  public ResponseEntity<TopicDetailedDTO> createTopic(@RequestBody @Valid TopicCreateDTO topicCreateDTO,
       UriComponentsBuilder uriBuilder) {
     var topicCreated = service.create(topicCreateDTO);
     var uri = uriBuilder.path("/topics/{id}").buildAndExpand(topicCreated.id()).toUri();
@@ -43,7 +45,7 @@ public class TopicController {
     return ResponseEntity.status(HttpStatus.OK).body(page);
   }
 
-  public ResponseEntity<TopicDetailedDTO> updateTopic(@RequestBody TopicUpdateDTO topicUpdateDTO) {
+  public ResponseEntity<TopicDetailedDTO> updateTopic(@RequestBody @Valid TopicUpdateDTO topicUpdateDTO) {
     var topicUpdated = service.updateTopic(topicUpdateDTO);
     return ResponseEntity.status(HttpStatus.OK).body(topicUpdated);
   }

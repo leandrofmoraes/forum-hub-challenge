@@ -16,6 +16,8 @@ import com.forumhub.api.dto.author.AuthorDetailedDTO;
 import com.forumhub.api.dto.author.NewAuthorDTO;
 import com.forumhub.api.service.AuthorService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("authors")
 public class AuthorController {
@@ -23,7 +25,7 @@ public class AuthorController {
   @Autowired
   private AuthorService service;
 
-  public ResponseEntity<AuthorDetailedDTO> newAuthor(@RequestBody NewAuthorDTO newAuthorDTO,
+  public ResponseEntity<AuthorDetailedDTO> newAuthor(@RequestBody @Valid NewAuthorDTO newAuthorDTO,
       UriComponentsBuilder uriBuilder) {
     var author = service.create(newAuthorDTO);
     var uri = uriBuilder.path("/authors/{id}").buildAndExpand(author.id()).toUri();

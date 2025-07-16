@@ -16,6 +16,8 @@ import com.forumhub.api.dto.course.CourseDetailedDTO;
 import com.forumhub.api.dto.course.NewCourseDTO;
 import com.forumhub.api.service.CourseService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("courses")
 public class CourseController {
@@ -23,7 +25,7 @@ public class CourseController {
   @Autowired
   private CourseService service;
 
-  public ResponseEntity<CourseDetailedDTO> newCourse(@RequestBody NewCourseDTO newCourseDTO,
+  public ResponseEntity<CourseDetailedDTO> newCourse(@RequestBody @Valid NewCourseDTO newCourseDTO,
       UriComponentsBuilder uriBuilder) {
     var course = service.newCourse(newCourseDTO);
     var uri = uriBuilder.path("/courses/{id}").buildAndExpand(course.id()).toUri();
