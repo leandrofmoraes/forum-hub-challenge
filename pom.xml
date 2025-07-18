@@ -77,6 +77,16 @@
 
   <build>
     <plugins>
+
+      <!-- Plugin para executar a classe principal -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <mainClass>com.forumhub.api.ForumHubApiApplication</mainClass>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -101,6 +111,7 @@
           </excludes>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 
