@@ -10,8 +10,8 @@ public record TopicDetailedDTO(
     String content,
     LocalDateTime createdAt,
     boolean status,
-    Author author,
-    Course course) {
+    String author,
+    String course) {
 
   public TopicDetailedDTO(Topic topic) {
     this(
@@ -20,7 +20,7 @@ public record TopicDetailedDTO(
         topic.getContent(),
         topic.getCreatedAt(),
         topic.isStatus(),
-        topic.getAuthor(),
-        topic.getCourse());
+        topic.getAuthor().getName(),
+        topic.getCourse().getName());
   }
 }

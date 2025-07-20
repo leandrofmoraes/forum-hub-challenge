@@ -29,7 +29,7 @@ public class Author {
   private String name;
   private String email;
 
-  @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
   private List<Topic> topics = new ArrayList<>();
 
   public Author(NewAuthorDTO newAuthor) {
