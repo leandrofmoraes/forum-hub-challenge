@@ -9,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.forumhub.api.dto.author.AuthorDetailedDTO;
+import com.forumhub.api.dto.author.AuthorUpdateDTO;
 import com.forumhub.api.dto.author.NewAuthorDTO;
 import com.forumhub.api.service.AuthorService;
 
@@ -47,5 +49,11 @@ public class AuthorController {
 
     var page = service.listAuthors(pageable);
     return ResponseEntity.status(HttpStatus.OK).body(page);
+  }
+
+  @PutMapping
+  public ResponseEntity<String> updatePassword(@RequestBody @Valid AuthorUpdateDTO authorUpdateDTO) {
+    service.updatePassword(authorUpdateDTO);
+    return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
   }
 }

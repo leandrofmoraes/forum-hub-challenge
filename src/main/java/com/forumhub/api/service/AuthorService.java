@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.forumhub.api.dto.author.AuthorDetailedDTO;
+import com.forumhub.api.dto.author.AuthorUpdateDTO;
 import com.forumhub.api.dto.author.NewAuthorDTO;
 import com.forumhub.api.entity.Author;
 import com.forumhub.api.repository.AuthorRepository;
@@ -29,5 +31,13 @@ public class AuthorService {
 
   public Page<AuthorDetailedDTO> listAuthors(Pageable pageable) {
     return repository.findAll(pageable).map(AuthorDetailedDTO::new);
+  }
+
+  @Transactional
+  public void updatePassword(AuthorUpdateDTO authorUpdateDTO) {
+    Author author = repository.findById(authorUpdateDTO.id())
+        .orElseThrow(() -> new IllegalArgumentException("Topic with ID " + authorUpdateDTO.id() + " does not exist."));
+
+    author.setPassword(authorUpdateDTO.password());
   }
 }
