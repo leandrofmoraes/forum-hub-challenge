@@ -17,16 +17,10 @@ echo "[3/4] Criando sessão tmux 'project'…"
 
 tmux new-session -d -s project -c "$PROJECT_DIR" -n root
 
-echo "  ➜ Janela 'code'…"
-tmux new-window -t project: -n code -c "$PROJECT_DIR/src/main/java/com/forumhub/api/"
-
-echo "  ➜ Janela 'db'…"
-tmux new-window -t project: -n db -c "$PROJECT_DIR"
-tmux send-keys -t project:db "docker exec -it forumhub-db mysql -u leandro -p" C-m
-
 echo "  ➜ Configurando variáveis de ambiente.."
 MYSQL_USER=$(grep -oP '(?<=MYSQL_USER=).*' "$PROJECT_DIR/.env")
 MYSQL_PASSWORD=$(grep -oP '(?<=MYSQL_PASSWORD=).*' "$PROJECT_DIR/.env")
+JWT_SECRET="123456"
 
 if [[ -z "$MYSQL_USER" ]]; then
   echo "Erro: MYSQL_USER não encontrado no arquivo .env."
@@ -39,6 +33,14 @@ fi
 
 tmux set-environment -t project MYSQL_USER "$MYSQL_USER"
 tmux set-environment -t project MYSQL_PASSWORD "$MYSQL_PASSWORD"
+tmux set-environment -t project JWT_SECRET "$JWT_SECRET"
+
+echo "  ➜ Janela 'code'…"
+tmux new-window -t project: -n code -c "$PROJECT_DIR/src/main/java/com/forumhub/api/"
+
+echo "  ➜ Janela 'db'…"
+tmux new-window -t project: -n db -c "$PROJECT_DIR"
+tmux send-keys -t project:db "docker exec -it forumhub-db mysql -u leandro -p" C-m
 
 echo "  ➜ Janela 'client'…"
 tmux new-window -t project: -n client -c "$PROJECT_DIR/requests/"

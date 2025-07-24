@@ -24,7 +24,7 @@ public class SecurityFilter extends OncePerRequestFilter {
   @Autowired
   private TokenService service;
   @Autowired
-  private AuthorRepository repository;
+  private AuthorRepository authorRepository;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request,
@@ -34,7 +34,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     retrieveToken(request)
         .ifPresent(token -> {
           var subject = service.getSubject(token);
-          var author = repository.findByEmail(subject);
+          var author = authorRepository.findByEmail(subject);
           var authentication = new UsernamePasswordAuthenticationToken(author, null, author.getAuthorities());
           SecurityContextHolder.getContext().setAuthentication(authentication);
         });

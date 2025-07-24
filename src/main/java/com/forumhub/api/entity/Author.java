@@ -34,10 +34,9 @@ public class Author implements UserDetails {
   private Long id;
   private String name;
 
-  @Column(nullable = false, unique = true)
+  @Column(unique = true)
   private String email;
 
-  @Column(nullable = false)
   private String password;
 
   @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)

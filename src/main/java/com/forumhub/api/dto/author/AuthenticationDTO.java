@@ -6,5 +6,5 @@ import jakarta.validation.constraints.NotNull;
 
 public record AuthenticationDTO(
     @NotNull String username,
-    @NotNull @Length(min = 6) String password) {
+    @NotNull @Length(min = 4) String password) {
 }
