@@ -8,8 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.forumhub.api.dto.author.NewAuthorDTO;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,10 +40,10 @@ public class Author implements UserDetails {
   @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
   private List<Topic> topics = new ArrayList<>();
 
-  public Author(NewAuthorDTO newAuthor) {
-    this.name = newAuthor.name();
-    this.email = newAuthor.email();
-    this.password = newAuthor.password();
+  public Author(String name, String email, String encodedPassword) {
+    this.name = name;
+    this.email = email;
+    this.password = encodedPassword;
   }
 
   @Override

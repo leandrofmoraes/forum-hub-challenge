@@ -20,6 +20,7 @@ import com.forumhub.api.dto.author.AuthorUpdateDTO;
 import com.forumhub.api.dto.author.NewAuthorDTO;
 import com.forumhub.api.service.AuthorService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
@@ -37,12 +38,14 @@ public class AuthorController {
     return ResponseEntity.created(uri).body(author);
   }
 
+  @SecurityRequirement(name = "bearer-key")
   @GetMapping("/{id}")
   public ResponseEntity<AuthorDetailedDTO> findAuthor(@PathVariable(value = "id") Long id) {
     var author = service.findAuthor(id);
     return ResponseEntity.status(HttpStatus.OK).body(author);
   }
 
+  @SecurityRequirement(name = "bearer-key")
   @GetMapping
   public ResponseEntity<Page<AuthorDetailedDTO>> listAuthors(
       @PageableDefault(size = 10, sort = "name") Pageable pageable) {
@@ -51,6 +54,7 @@ public class AuthorController {
     return ResponseEntity.status(HttpStatus.OK).body(page);
   }
 
+  @SecurityRequirement(name = "bearer-key")
   @PutMapping
   public ResponseEntity<String> updatePassword(@RequestBody @Valid AuthorUpdateDTO authorUpdateDTO) {
     service.updatePassword(authorUpdateDTO);

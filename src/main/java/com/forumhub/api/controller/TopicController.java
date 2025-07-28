@@ -21,8 +21,10 @@ import com.forumhub.api.dto.topic.TopicDetailedDTO;
 import com.forumhub.api.dto.topic.TopicUpdateDTO;
 import com.forumhub.api.service.TopicService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
+@SecurityRequirement(name = "bearer-key")
 @RestController
 @RequestMapping("topics")
 public class TopicController {
